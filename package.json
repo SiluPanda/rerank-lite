@@ -4,6 +4,12 @@
   "description": "Lightweight retrieval reranker using cross-encoder scoring",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -13,7 +19,15 @@
     "lint": "eslint src/",
     "prepublishOnly": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "rerank",
+    "reranker",
+    "bm25",
+    "tfidf",
+    "rag",
+    "retrieval",
+    "llm"
+  ],
   "author": "",
   "license": "MIT",
   "engines": {
@@ -21,5 +35,13 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "eslint": "^10.1.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
   }
 }
