@@ -3,6 +3,7 @@
 Lightweight retrieval reranker for JavaScript and TypeScript -- zero dependencies, three scoring modes, one API.
 
 [![npm version](https://img.shields.io/npm/v/rerank-lite.svg)](https://www.npmjs.com/package/rerank-lite)
+[![npm downloads](https://img.shields.io/npm/dt/rerank-lite.svg)](https://www.npmjs.com/package/rerank-lite)
 [![license](https://img.shields.io/npm/l/rerank-lite.svg)](https://github.com/SiluPanda/rerank-lite/blob/master/LICENSE)
 [![node](https://img.shields.io/node/v/rerank-lite.svg)](https://nodejs.org)
 
