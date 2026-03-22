@@ -8,8 +8,8 @@ This file tracks all tasks required to implement `rerank-lite` per the SPEC.md. 
 
 ### 1.1 Project Scaffolding
 
-- [ ] **Install dev dependencies** — Add `typescript`, `vitest`, `eslint`, and `@types/node` as dev dependencies in `package.json`. Run `npm install` to generate `node_modules` and `package-lock.json`. | Status: not_done
-- [ ] **Configure ESLint** — Add an ESLint configuration file (`.eslintrc` or `eslint.config.js`) appropriate for a TypeScript project. Ensure `npm run lint` works against `src/`. | Status: not_done
+- [x] **Install dev dependencies** — Add `typescript`, `vitest`, `eslint`, and `@types/node` as dev dependencies in `package.json`. Run `npm install` to generate `node_modules` and `package-lock.json`. | Status: done
+- [x] **Configure ESLint** — Add an ESLint configuration file (`.eslintrc` or `eslint.config.js`) appropriate for a TypeScript project. Ensure `npm run lint` works against `src/`. | Status: done
 - [ ] **Create directory structure** — Create the directories specified in the file structure: `src/modes/`, `src/models/`, `src/tokenizer/`, `src/heuristic/`, `src/prompts/`, and `src/__tests__/`. | Status: not_done
 - [ ] **Add .gitignore entries** — Ensure `dist/`, `node_modules/`, and any build artifacts are in `.gitignore`. | Status: not_done
 
@@ -54,9 +54,9 @@ This file tracks all tasks required to implement `rerank-lite` per the SPEC.md. 
 - [ ] **Implement `rerank()` function** — Async function taking `query`, `documents`, and optional `options`. Validate inputs: throw `EMPTY_QUERY` if query is empty, throw `EMPTY_DOCUMENTS` if documents array is empty. Auto-assign IDs (`doc-0`, `doc-1`, ...) to documents without an `id` field. Respect `idField` option. Select mode (for Phase 1, only heuristic is available). Score documents. Apply normalization unless `normalizeScores: false`. Sort by score descending. Assign 1-based ranks. Apply `topK` if set. Return `RerankResult[]`. | Status: not_done
 - [ ] **Implement input validation** — Validate that query is a non-empty string. Validate that documents is a non-empty array. Validate that each document has a `text` field. Throw appropriate `RerankError` for each validation failure. | Status: not_done
 - [ ] **Implement auto-ID assignment** — For documents without an `id` field (or without the field named by `idField`), generate IDs as `"doc-0"`, `"doc-1"`, etc. based on array index. | Status: not_done
-- [ ] **Implement `topK` limiting** — After sorting, slice the results to the first `topK` entries if the option is set. | Status: not_done
+- [x] **Implement `topK` limiting** — After sorting, slice the results to the first `topK` entries if the option is set. | Status: done
 - [ ] **Implement `normalizeScores: false` passthrough** — When `normalizeScores` is `false`, skip min-max normalization and return raw mode scores. | Status: not_done
-- [ ] **Implement metadata pass-through** — Ensure each `RerankResult` includes the original document's `metadata` field, passed through unchanged. | Status: not_done
+- [x] **Implement metadata pass-through** — Ensure each `RerankResult` includes the original document's `metadata` field, passed through unchanged. | Status: done
 
 ### 1.8 Convenience Export (`rerankHeuristic`)
 
@@ -70,7 +70,7 @@ This file tracks all tasks required to implement `rerank-lite` per the SPEC.md. 
 
 - [ ] **Unit tests: stop words (`src/__tests__/heuristic.test.ts`)** — Verify the stop word set contains expected words (the, is, at, etc.) and does not contain content words (algorithm, error, etc.). | Status: not_done
 - [ ] **Unit tests: query term coverage** — Verify coverage for full match (1.0), partial match (e.g., 3/4 = 0.75), no match (0.0). Verify case insensitivity. Verify stop word removal from query before coverage computation. | Status: not_done
-- [ ] **Unit tests: BM25 scoring** — Verify BM25 scores against hand-computed values for a known document set. Verify IDF: a term in 1/10 docs has higher IDF than a term in 9/10 docs. Verify term frequency saturation (k1 parameter). Verify document length normalization (b parameter). | Status: not_done
+- [x] **Unit tests: BM25 scoring** — Verify BM25 scores against hand-computed values for a known document set. Verify IDF: a term in 1/10 docs has higher IDF than a term in 9/10 docs. Verify term frequency saturation (k1 parameter). Verify document length normalization (b parameter). | Status: done
 - [ ] **Unit tests: keyword density** — Verify density = queryTermOccurrences / documentTokenCount. Test document with 10 occurrences of query terms in 100 tokens yields 0.10. | Status: not_done
 - [ ] **Unit tests: position bonus** — Verify term at position 0 contributes 1.0, term at last position contributes ~0.0. Verify average across multiple matched terms. Verify 0 when no terms match. | Status: not_done
 - [ ] **Unit tests: composite heuristic score** — Verify weighted combination with default weights. Verify custom weights. Verify weight auto-normalization to sum to 1.0. | Status: not_done
