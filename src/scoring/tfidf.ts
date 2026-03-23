@@ -51,8 +51,12 @@ export function tfidfScore(query: string, document: string, corpus: string[]): n
   const docTokens = tokenize(document)
   const corpusTokens = corpus.map(tokenize)
 
-  // Build vocabulary from query + document only (for efficiency)
-  const vocabulary = Array.from(new Set([...queryTokens, ...docTokens]))
+  // Build vocabulary from query + document + corpus for correct IDF weights
+  const allTokens = new Set([...queryTokens, ...docTokens])
+  for (const tokens of corpusTokens) {
+    for (const t of tokens) allTokens.add(t)
+  }
+  const vocabulary = Array.from(allTokens)
 
   if (vocabulary.length === 0) return 0
 

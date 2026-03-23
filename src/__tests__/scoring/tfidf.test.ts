@@ -42,6 +42,20 @@ describe('tfidfScore', () => {
     expect(score).toBe(0)
   })
 
+  it('uses corpus-wide vocabulary for IDF calculation', () => {
+    // "cherry" only appears in corpus, not in query or document
+    // With full corpus vocab, IDF of "cherry" affects the vector dimensions
+    const corpus3 = ['apple banana', 'apple cherry', 'apple apple apple']
+    const score1 = tfidfScore('apple', 'apple banana', corpus3)
+    const score2 = tfidfScore('apple', 'apple cherry', corpus3)
+    // Both should produce valid scores (not NaN or 0)
+    expect(score1).toBeGreaterThan(0)
+    expect(score2).toBeGreaterThan(0)
+    // "banana" and "cherry" each appear in 1 doc so should have equal IDF
+    // Both docs have same query overlap, so scores should be similar
+    expect(Math.abs(score1 - score2)).toBeLessThan(0.1)
+  })
+
   it('higher overlap documents score higher', () => {
     const query = 'machine learning neural network'
     const corpus2 = [

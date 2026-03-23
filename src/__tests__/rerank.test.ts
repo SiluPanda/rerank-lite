@@ -54,6 +54,20 @@ describe('rerank()', () => {
     }
   })
 
+  it('newRank is contiguous after minScore filtering', async () => {
+    const results = await rerank('machine learning neural network', docs, { minScore: 0.3 })
+    // Verify newRank is 0, 1, 2, ... with no gaps
+    results.forEach((r, idx) => {
+      expect(r.newRank).toBe(idx)
+    })
+  })
+
+  it('newRank is contiguous after topK filtering', async () => {
+    const results = await rerank('machine learning', docs, { topK: 2 })
+    expect(results[0].newRank).toBe(0)
+    expect(results[1].newRank).toBe(1)
+  })
+
   it('returns empty array for empty documents', async () => {
     const results = await rerank('machine learning', [])
     expect(results).toEqual([])
