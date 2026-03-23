@@ -75,5 +75,10 @@ export async function rerank(
     filtered = filtered.slice(0, options.topK)
   }
 
+  // Recalculate newRank after filtering so values are contiguous 0-based
+  filtered.forEach((r, idx) => {
+    r.newRank = idx
+  })
+
   return filtered
 }
